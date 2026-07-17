@@ -7,13 +7,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import ru.shadowd3m.spring.entity.Record;
 import ru.shadowd3m.spring.entity.RecordStatus;
 import ru.shadowd3m.spring.entity.dto.RecordsContainerDto;
 import ru.shadowd3m.spring.service.RecordService;
-
 import java.awt.*;
-import java.util.List;
 
 @Controller
 public class CommonController {
@@ -58,3 +55,28 @@ public class CommonController {
         return "redirect:/home" + (filterMode != null && !filterMode.isBlank() ? "?filter=" + filterMode : "");
     }
 }
+
+/* Можно создать DTO класс вместо передачи все аргументов с аннотацией @RequestParam
+   Spring сам создаст объект этого класса. :)
+
+@RequestMapping(value = "/delete-record", method = RequestMethod.POST)
+    public String deleteRecord(QueryParameters parameters) {
+        recordService.deleteRecord(parameters.getId());
+        return "redirect:/home" + (parameters.getFilter() != null && !parameters.getFilter().isBlank() ? "?filter=" + parameters.getFilter() : "");
+    }
+}
+
+class QueryParameters {
+    private int id;
+    private String filter;
+
+    public QueryParameters(String filter, int id) {
+        this.filter = filter;
+        this.id = id;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+ */
