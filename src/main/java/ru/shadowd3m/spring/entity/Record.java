@@ -1,21 +1,26 @@
 package ru.shadowd3m.spring.entity;
 
-public class Record {
-    private static int counterSequence = 0;
 
-    private final int id;
-    private final String title;
+import javax.persistence.*;
+
+@Entity
+@Table(name="records")
+public class Record {
+
+    @Id
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @Column(name="id")
+    private int id;
+
+    @Column(name="title", nullable=false, length=100)
+    private String title;
+
+    @Column(name="status", nullable=false, length=100)
     private RecordStatus status;
 
-
-    public Record(String title,  RecordStatus status) {
-        this.id = counterSequence++;
-        this.title = title;
-        this.status = status;
-    }
+    public Record() {}
 
     public Record(String title){
-        this.id = counterSequence++;
         this.title = title;
         this.status = RecordStatus.ACTIVE;
     }
@@ -24,15 +29,23 @@ public class Record {
         return id;
     }
 
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
     public RecordStatus getStatus() {
         return status;
     }
 
     public void setStatus(RecordStatus status) {
         this.status = status;
-    }
-
-    public String getTitle() {
-        return title;
     }
 }
